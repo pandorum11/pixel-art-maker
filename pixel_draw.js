@@ -1,6 +1,6 @@
 
-const high_container_block = document.getElementById('wrapper');
-const net_block = document.getElementById('net');
+//const high_container_block = document.getElementById('wrapper');
+
 const xXx = 80;
 const size_of_brick = '10px';
 let color = '#000000';
@@ -12,7 +12,7 @@ function built_table(){
   block_to_insert_div.setAttribute("id", "papa");
   for(let j=0; j<xXx/2; j++)
     block_to_insert_div.appendChild(build_row(j));
-  high_container_block.appendChild(block_to_insert_div)
+  document.getElementById('wrapper').appendChild(block_to_insert_div)
   return;
 }
 
@@ -115,8 +115,8 @@ colorPicker.addEventListener("change", (event)=>color=event.target.value, false)
 //------------------------------
 
 document.getElementById('input_button_clear').addEventListener('click', function (event) {
-  high_container_block.innerHTML=''
-  built_table()
+  document.getElementById('wrapper').innerHTML='';
+  built_table();
 });
 
 
@@ -159,14 +159,15 @@ document.getElementById("input_button_save").addEventListener("click", function 
 //------------------------------
 
 function handleFileSelect(input) {
-
-  let file = input.target.files[0];
-  let reader = new FileReader();
+  const file = input.target.files[input.target.files.length-1];
+  const reader = new FileReader();
   reader.readAsText(file);
   
-  reader.onloadend = function() {
-    document.getElementById('wrapper').remove();
-    net_block.innerHTML = reader.result + net_block.innerHTML;
+  reader.onload = function() {
+    const net_block = document.getElementById('net');
+    const wrapper = new DOMParser().parseFromString(reader.result, 'text/html');
+    const old_node = net_block.childNodes[0];
+    net_block.replaceChild(wrapper.children[0].children[1].children[0], old_node);
   };
 
 }
