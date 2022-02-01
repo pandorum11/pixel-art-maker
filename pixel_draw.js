@@ -101,3 +101,19 @@ document.getElementById('input_button_clear').addEventListener('click', function
   high_container_block.innerHTML=''
   built_table()
 });
+
+
+//------------------------------
+
+function setColorDot(event) {
+  let current = document.elementFromPoint(event.clientX, event.clientY)
+  console.log(current.id)
+  if(current.id === "opt"){
+    color = current.value;
+    let CL = document.getElementById('choose_color_body');
+    CL.value = current.value;
+  }
+    
+}
+
+document.addEventListener("click", setColorDot);
