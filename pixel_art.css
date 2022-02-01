@@ -1,0 +1,92 @@
+
+body{
+    font-family: -webkit-pictograph;
+}
+
+#net {
+}
+
+.node{
+}
+
+.row{
+}
+
+#papa{
+    background-color: #eaeaea;
+    font-size: 0;
+    padding: 16px 0px 16px 0px;
+    border-radius: 7px;
+}
+
+#wrapper{
+    max-width: 72%;
+    margin: 0 auto;
+}
+
+#color_switcher_wrap{
+    max-width: 72%;
+    margin: 0 auto;
+}
+
+#color_switcher{
+    margin-top: 10px;
+    display: inline-block;
+}
+
+#choose_color{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#choose_color_body{
+    background-color: #d1d1d1;
+    border-radius: 3px;
+}
+
+#button_clear{
+    display: inline-block;
+    float: right;
+    margin-top: 12px;
+}
+
+#input_button_clear{
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/**/
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  /*box-sizing: border-box;*/
+}
+
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+    
