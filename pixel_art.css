@@ -58,6 +58,19 @@ body{
         cursor: pointer;
 }
 
+#button_save{
+    display: inline-block;
+    float: right;
+    margin-top: 12px;
+}
+
+#input_button_save{
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+        cursor: pointer;
+}
+
 #presetColors{
    display: inline-block;
     margin-left: 50px;
@@ -67,13 +80,15 @@ body{
     display: inline-block;
     width: 27px;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 18px;
+    border: solid 2px #767272;
     margin: 0px 7px 0px 7px;
     cursor: pointer;
 }
 
-
-
+#load_file {
+    display: inline-block;
+  }
 
 /**/
 

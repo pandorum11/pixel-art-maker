@@ -1,9 +1,11 @@
 
 const high_container_block = document.getElementById('wrapper');
+const net_block = document.getElementById('net');
 const xXx = 80;
 const size_of_brick = '10px';
 let color = '#000000';
 
+//------------------------------
 
 function built_table(){
   let block_to_insert_div = document.createElement('div');
@@ -25,11 +27,7 @@ function build_row(row){
   return block_to_insert_div
 }
 
-
-function build_node(number, row){
-  let block_to_insert_div = document.createElement('div');
-  block_to_insert_div.setAttribute("id", "node_" + number + "_row_" + row);
-  block_to_insert_div.setAttribute("class", "node");
+function set_brick_style(block_to_insert_div){
   block_to_insert_div.style['background-color']  = '#ffffff';
   block_to_insert_div.style['height']  = `${size_of_brick}`;
   block_to_insert_div.style['width']  = `${size_of_brick}`;
@@ -38,12 +36,24 @@ function build_node(number, row){
   block_to_insert_div.style['-moz-box-shadow'] = 'inset 0 0 1px #eaeaea';
   block_to_insert_div.style['-webkit-box-shadow'] = 'inset 0 0 1px #eaeaea';
   block_to_insert_div.style['box-shadow'] ='inset 0 0 1px #eaeaea';
+}
+
+
+function build_node(number, row){
+  let block_to_insert_div = document.createElement('div');
+  block_to_insert_div.setAttribute("id", "node_" + number + "_row_" + row);
+  block_to_insert_div.setAttribute("class", "node");
+  set_brick_style(block_to_insert_div)
   return block_to_insert_div;
 }
 
+//------------------------------
+
 built_table()
 
-const set_black = function(toblack) {
+//------------------------------
+
+const set_color = function(toblack) {
   toblack.style['background-color'] = `${color}`;
   if(color !== '#ffffff') {
     toblack.style['-moz-box-shadow'] ='none';
@@ -57,18 +67,22 @@ const set_black = function(toblack) {
   }
 }
 
+//------------------------------
+
 function printMousePos(event) {
   let current = document.elementFromPoint(event.clientX, event.clientY)
   if(current.getAttribute('class') === "node")
-    set_black(current);
+    set_color(current);
 }
 
 document.addEventListener("click", printMousePos);
 
+//------------------------------
+
 window.addEventListener("mousedown", function(event) {
   let current = document.elementFromPoint(event.clientX, event.clientY)
   if(current.getAttribute('class') === "node") {
-    set_black(current);
+    set_color(current);
     window.addEventListener("mousemove", moved);
     event.preventDefault(); // Prevent selection
   }
@@ -87,15 +101,18 @@ function moved(event) {
   } else {
     let current = document.elementFromPoint(event.clientX, event.clientY)
     if(current.getAttribute('class') === "node"){
-      set_black(current);
+      set_color(current);
     }  
   }
 }
+
+//------------------------------
 
 let colorPicker = document.getElementById('choose_color_body');
 colorPicker.addEventListener("input", (event)=>color=event.target.value, false);
 colorPicker.addEventListener("change", (event)=>color=event.target.value, false);
 
+//------------------------------
 
 document.getElementById('input_button_clear').addEventListener('click', function (event) {
   high_container_block.innerHTML=''
@@ -105,15 +122,53 @@ document.getElementById('input_button_clear').addEventListener('click', function
 
 //------------------------------
 
+let CL = document.getElementById('choose_color_body');
+
 function setColorDot(event) {
   let current = document.elementFromPoint(event.clientX, event.clientY)
-  console.log(current.id)
   if(current.id === "opt"){
-    color = current.value;
-    let CL = document.getElementById('choose_color_body');
+    color = current.value;   
     CL.value = current.value;
   }
     
 }
 
 document.addEventListener("click", setColorDot);
+
+//------------------------------
+
+
+ function download(filename, textInput) {
+  var element = document.createElement('a');
+  element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
+  element.setAttribute('download', filename);
+  document.body.appendChild(element);
+  element.click();
+  //document.body.removeChild(element);
+}
+
+document.getElementById("input_button_save").addEventListener("click", function () {
+  var new_div = document.createElement('div');
+  var text = document.getElementById('wrapper').cloneNode(true);
+  new_div.appendChild(text)
+  var filename = "output.html";
+  download(filename, new_div.innerHTML);
+ }, false);
+
+
+//------------------------------
+
+function handleFileSelect(input) {
+
+  let file = input.target.files[0];
+  let reader = new FileReader();
+  reader.readAsText(file);
+  
+  reader.onloadend = function() {
+    document.getElementById('wrapper').remove();
+    net_block.innerHTML = reader.result + net_block.innerHTML;
+  };
+
+}
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
