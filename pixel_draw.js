@@ -1,9 +1,26 @@
 
 //const high_container_block = document.getElementById('wrapper');
 
-const xXx = 80;
+let xXx = window.outerWidth/20;
 const size_of_brick = '10px';
 let color = '#000000';
+
+
+//------------------------------
+
+function re_draw(event){
+  const new_width = window.outerWidth/20;
+  if (xXx != new_width)
+    xXx = new_width;
+  document.getElementById('wrapper').innerHTML='';
+  built_table();
+}
+
+window.addEventListener('resize', re_draw);
+
+//------------------------------
+
+document.getElementById('input_button_clear').addEventListener('click', re_draw);
 
 //------------------------------
 
@@ -111,14 +128,6 @@ function moved(event) {
 let colorPicker = document.getElementById('choose_color_body');
 colorPicker.addEventListener("input", (event)=>color=event.target.value, false);
 colorPicker.addEventListener("change", (event)=>color=event.target.value, false);
-
-//------------------------------
-
-document.getElementById('input_button_clear').addEventListener('click', function (event) {
-  document.getElementById('wrapper').innerHTML='';
-  built_table();
-});
-
 
 //------------------------------
 
